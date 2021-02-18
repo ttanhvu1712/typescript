@@ -47,33 +47,40 @@ function autoBind(_: any, _2: string, descriptor: PropertyDescriptor): PropertyD
   return adjDescriptor
 }
 
+//Project Type
+enum ProjectStatus {
+  Active,
+  Finished,
+}
+
+// Project Type
+type Listener = (projects: Project[]) => void
+class Project {
+  constructor(public id: string, public title: string, public description: string, public people: number, public status: ProjectStatus) {}
+}
+
 //ProjectState Class
 class ProjectState {
-  private listeners: any[] = [];
-  private projects: any[] = [];
-  private static instance: ProjectState;
+  private listeners: Listener[] = []
+  private projects: Project[] = []
+  private static instance: ProjectState
 
   private constructor() {}
 
   static getInstance() {
-    if(this.instance) return this.instance
+    if (this.instance) return this.instance
     this.instance = new ProjectState()
     return this.instance
   }
 
   addProject(title: string, description: string, numberOfPeople: number) {
-    const newProject = {
-      id: Math.random.toString(),
-      title: title,
-      description: description,
-      people: numberOfPeople
-    }
+    const newProject = new Project(Math.random.toString(), title, description, numberOfPeople, ProjectStatus.Active)
     this.projects.push(newProject)
 
-    this.listeners.forEach(listenerFn => listenerFn(this.projects.slice()))
+    this.listeners.forEach((listenerFn) => listenerFn(this.projects.slice()))
   }
 
-  addListener(listener: any) {
+  addListener(listener: Listener) {
     this.listeners.push(listener)
   }
 }
@@ -85,9 +92,9 @@ class ProjectList {
   templateEl: HTMLTemplateElement
   hostEl: HTMLDivElement
   el: HTMLElement
-  assignedProjects: any[] = []
+  assignedProjects: Project[] = []
 
-  constructor(private type: 'active' | 'finished' ) {
+  constructor(private type: 'active' | 'finished') {
     this.templateEl = <HTMLTemplateElement>document.getElementById('project-list')!
     this.hostEl = <HTMLDivElement>document.getElementById('app')!
 
@@ -95,7 +102,7 @@ class ProjectList {
     this.el = <HTMLElement>importNode.firstElementChild
     this.el.id = `${this.type}-projects`
 
-    prjState.addListener((projects: any) => {
+    prjState.addListener((projects: Project[]) => {
       this.assignedProjects = projects
       this.renderProjects()
     })
@@ -157,7 +164,7 @@ class ProjectInput {
 
     const titleValidatable: Validatable = {
       value: enteredTitle,
-      require: true
+      require: true,
     }
 
     const descriptionValidatable: Validatable = {
