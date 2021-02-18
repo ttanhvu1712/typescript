@@ -70,7 +70,7 @@ button:active {
 
 #finished-projects {
   margin: 1rem;
-  border-color: #0044ff;
+  border: 1px solid #0044ff;
 }
 
 #finished-projects header {
@@ -79,15 +79,23 @@ button:active {
   background: #0044ff;
 }
 
+#finished-projects h2 {
+  margin: 0;
+}
+
 #active-projects {
   margin: 1rem;
-  border-color: red;
+  border: 1px solid red;
 }
 
 #active-projects header {
   text-align: center;
   color: white;
   background: red;
+}
+
+#active-projects h2 {
+  margin: 0;
 }
 
 
