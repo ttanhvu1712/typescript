@@ -68,7 +68,7 @@ class State<T> {
 }
 
 //ProjectState Class
-class ProjectState extends State<Project>{
+class ProjectState extends State<Project> {
   private projects: Project[] = []
   private static instance: ProjectState
 
@@ -91,7 +91,6 @@ class ProjectState extends State<Project>{
 }
 
 const prjState = ProjectState.getInstance()
-
 
 //Component Class
 abstract class Component<T extends HTMLElement, U extends HTMLElement> {
@@ -118,6 +117,28 @@ abstract class Component<T extends HTMLElement, U extends HTMLElement> {
   protected abstract renderContent(): void
 }
 
+//ProjectItem Class
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+  get persons() {
+    if(this.project.people === 1) return '1 person'
+    else return `${this.project.people} persons`
+  }
+
+  constructor(hostId: string, private project: Project) {
+    super('single-project', hostId, false, project.id)
+
+    this.renderContent()
+    this.configure()
+  }
+
+  configure() {}
+
+  renderContent() {
+    this.el.querySelector('h2')!.textContent = this.project.title
+    this.el.querySelector('h3')!.textContent = this.persons + ' assigned'
+    this.el.querySelector('p')!.textContent = this.project.description
+  }
+}
 //ProjectList Class
 class ProjectList extends Component<HTMLDivElement, HTMLElement> {
   assignedProjects: Project[] = []
@@ -152,9 +173,7 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
     const listEl = <HTMLElement>document.getElementById(`${this.type}-projects-list`)!
     listEl.innerHTML = ''
     this.assignedProjects.forEach((prj) => {
-      const item = document.createElement('li')
-      item.textContent = prj.title
-      listEl.appendChild(item)
+      new ProjectItem(listEl.id, prj)
     })
   }
 }

@@ -69,35 +69,12 @@ button:active {
 }
 
 #finished-projects {
-  margin: 1rem;
-  border: 1px solid #0044ff;
+  border-color: #0044ff;
 }
 
 #finished-projects header {
-  text-align: center;
-  color: white;
   background: #0044ff;
 }
-
-#finished-projects h2 {
-  margin: 0;
-}
-
-#active-projects {
-  margin: 1rem;
-  border: 1px solid red;
-}
-
-#active-projects header {
-  text-align: center;
-  color: white;
-  background: red;
-}
-
-#active-projects h2 {
-  margin: 0;
-}
-
 
 .projects h2 {
   margin: 0;
