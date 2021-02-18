@@ -47,10 +47,45 @@ function autoBind(_: any, _2: string, descriptor: PropertyDescriptor): PropertyD
   return adjDescriptor
 }
 
+//ProjectState Class
+class ProjectState {
+  private listeners: any[] = [];
+  private projects: any[] = [];
+  private static instance: ProjectState;
+
+  private constructor() {}
+
+  static getInstance() {
+    if(this.instance) return this.instance
+    this.instance = new ProjectState()
+    return this.instance
+  }
+
+  addProject(title: string, description: string, numberOfPeople: number) {
+    const newProject = {
+      id: Math.random.toString(),
+      title: title,
+      description: description,
+      people: numberOfPeople
+    }
+    this.projects.push(newProject)
+
+    this.listeners.forEach(listenerFn => listenerFn(this.projects.slice()))
+  }
+
+  addListener(listener: any) {
+    this.listeners.push(listener)
+  }
+}
+
+const prjState = ProjectState.getInstance()
+
+//ProjectList Class
 class ProjectList {
   templateEl: HTMLTemplateElement
   hostEl: HTMLDivElement
   el: HTMLElement
+  assignedProjects: any[] = []
 
   constructor(private type: 'active' | 'finished' ) {
     this.templateEl = <HTMLTemplateElement>document.getElementById('project-list')!
@@ -60,8 +95,22 @@ class ProjectList {
     this.el = <HTMLElement>importNode.firstElementChild
     this.el.id = `${this.type}-projects`
 
+    prjState.addListener((projects: any) => {
+      this.assignedProjects = projects
+      this.renderProjects()
+    })
+
     this.attach()
     this.renderContent()
+  }
+
+  private renderProjects() {
+    const listEl = <HTMLElement>document.getElementById(`${this.type}-projects-list`)!
+    this.assignedProjects.forEach((prj) => {
+      const item = document.createElement('li')
+      item.textContent = prj.title
+      listEl.appendChild(item)
+    })
   }
 
   private renderContent() {
@@ -142,7 +191,8 @@ class ProjectInput {
     event.preventDefault()
     const userInput = this.gatherUserInput()
     if (Array.isArray(userInput)) {
-      console.log(this.gatherUserInput())
+      const [title, desc, people] = userInput
+      prjState.addProject(title, desc, people)
       this.clearInput()
     }
   }
