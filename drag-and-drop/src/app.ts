@@ -1,4 +1,4 @@
-// validation decorator
+// validation
 type Validatable = {
   value: string | number
   require?: boolean
@@ -47,6 +47,35 @@ function autoBind(_: any, _2: string, descriptor: PropertyDescriptor): PropertyD
   return adjDescriptor
 }
 
+class ProjectList {
+  templateEl: HTMLTemplateElement
+  hostEl: HTMLDivElement
+  el: HTMLElement
+
+  constructor(private type: 'active' | 'finished' ) {
+    this.templateEl = <HTMLTemplateElement>document.getElementById('project-list')!
+    this.hostEl = <HTMLDivElement>document.getElementById('app')!
+
+    const importNode = document.importNode(this.templateEl.content, true)
+    this.el = <HTMLElement>importNode.firstElementChild
+    this.el.id = `${this.type}-projects`
+
+    this.attach()
+    this.renderContent()
+  }
+
+  private renderContent() {
+    const listId = `${this.type}-projects-list`
+    this.el.querySelector('ul')!.id = listId
+    this.el.querySelector('h2')!.textContent = this.type.toUpperCase() + ' PROJECTS'
+  }
+
+  private attach() {
+    this.hostEl.insertAdjacentElement('beforeend', this.el)
+  }
+}
+
+// ProjectInput Class
 class ProjectInput {
   templateEl: HTMLTemplateElement
   hostEl: HTMLDivElement
@@ -128,3 +157,5 @@ class ProjectInput {
 }
 
 const prjInput = new ProjectInput()
+const activePrjList = new ProjectList('active')
+const finishedPrjList = new ProjectList('finished')

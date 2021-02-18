@@ -69,12 +69,27 @@ button:active {
 }
 
 #finished-projects {
+  margin: 1rem;
   border-color: #0044ff;
 }
 
 #finished-projects header {
+  text-align: center;
+  color: white;
   background: #0044ff;
 }
+
+#active-projects {
+  margin: 1rem;
+  border-color: red;
+}
+
+#active-projects header {
+  text-align: center;
+  color: white;
+  background: red;
+}
+
 
 .projects h2 {
   margin: 0;
@@ -91,7 +106,6 @@ button:active {
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
   padding: 1rem;
   margin: 1rem;
-  background: white;
 }
 
 .projects li h2 {
