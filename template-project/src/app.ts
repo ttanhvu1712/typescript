@@ -7,5 +7,5 @@ class Department {
   }
 }
 
-const accounting = new Department('d1', 'accounting')
+const accounting = new Department('d1', 'sss')
 accounting.describe()

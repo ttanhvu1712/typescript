@@ -1,2 +1,14 @@
-node_modules
-*.js
+.idea/
+.next/
+node_modules/
+
+dist/
+build/
+out/
+
+.DS_Store
+
+*-debug.log
+*-error.log
+package-lock.json
+yarn.lock
