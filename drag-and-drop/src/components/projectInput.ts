@@ -1,7 +1,7 @@
-import Component from './BaseComponent.js'
-import validate, { Validatable } from '../utils/validation.js'
-import ProjectState from '../state/ProjectState.js'
-import autoBind from '../decorators/autoBind.js'
+import Component from './BaseComponent'
+import validate, { Validatable } from '../utils/validation'
+import ProjectState from '../state/ProjectState'
+import autoBind from '../decorators/autoBind'
 
 const prjState = ProjectState.getInstance()
 export default class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {

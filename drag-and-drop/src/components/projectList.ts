@@ -1,9 +1,9 @@
-import Component from './BaseComponent.js'
-import ProjectItem from './ProjectItem.js'
-import { DragTarget } from '../models/DragDrop.js'
-import Project, { ProjectStatus } from '../models/Project.js'
-import autoBind from '../decorators/autoBind.js'
-import ProjectState from '../state/ProjectState.js'
+import Component from './BaseComponent'
+import ProjectItem from './ProjectItem'
+import { DragTarget } from '../models/DragDrop'
+import Project, { ProjectStatus } from '../models/Project'
+import autoBind from '../decorators/autoBind'
+import ProjectState from '../state/ProjectState'
 
 const prjState = ProjectState.getInstance()
 

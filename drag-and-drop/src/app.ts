@@ -1,7 +1,8 @@
-import ProjectList from './components/ProjectList.js'
-import ProjectInput from './components/ProjectInput.js'
-namespace App {
-  const prjInput = new ProjectInput()
-  const activePrjList = new ProjectList('active')
-  const finishedPrjList = new ProjectList('finished')
-}
+import ProjectList from './components/ProjectList'
+import ProjectInput from './components/ProjectInput'
+
+new ProjectInput()
+new ProjectList('active')
+new ProjectList('finished')
+
+console.log('Hi')

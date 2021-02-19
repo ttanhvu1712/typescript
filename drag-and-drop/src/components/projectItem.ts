@@ -1,7 +1,7 @@
-import Component from './BaseComponent.js'
-import { Draggable } from '../models/DragDrop.js'
-import Project from '../models/Project.js'
-import autoBind from '../decorators/autoBind.js'
+import Component from './BaseComponent'
+import { Draggable } from '../models/DragDrop'
+import Project from '../models/Project'
+import autoBind from '../decorators/autoBind'
 export default class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> implements Draggable {
   get persons() {
     if (this.project.people === 1) return '1 person'
